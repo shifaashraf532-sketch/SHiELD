@@ -101,7 +101,7 @@ fun SHEildHomeScreen(navController: NavHostController) {
             onClick = {
                 try {
                     val smsManager: SmsManager = context.getSystemService(SmsManager::class.java)
-                    smsManager.sendTextMessage("1234567890", null, "Manual SOS triggered!", null, null)
+                    smsManager.sendTextMessage("6282217823", null, "REQUEST IMMEDIATE SOURCE",null, null)
                     Toast.makeText(context, "SOS Sent!", Toast.LENGTH_LONG).show()
                 } catch (e: Exception) {
                     // Fixed: Using 'e' to avoid unused parameter warning
@@ -112,7 +112,7 @@ fun SHEildHomeScreen(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth().height(80.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
         ) {
-            Text("🚨 SILENT SOS", color = Color.White, fontSize = 20.sp)
+            Text("🚨 EMERGENCY ALERT", color = Color.White, fontSize = 20.sp)
         }
 
         Spacer(modifier = Modifier.height(20.dp))
