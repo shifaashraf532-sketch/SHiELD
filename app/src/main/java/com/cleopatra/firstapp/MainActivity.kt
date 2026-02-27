@@ -42,6 +42,7 @@ fun SHEildAppNavigation(navController: NavHostController) {
 @Composable
 fun SHEildHomeScreen(navController: NavHostController) {
     val context = LocalContext.current
+
     Column(
         modifier = Modifier.fillMaxSize().padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -50,16 +51,25 @@ fun SHEildHomeScreen(navController: NavHostController) {
         Text("SHEild", fontSize = 42.sp, fontWeight = FontWeight.Bold, color = Color(0xFF6200EE))
         Spacer(Modifier.height(40.dp))
 
-        // SOS Button using SMS Permission from Manifest
+        // SOS Button
         Button(
             onClick = {
                 try {
-                    val smsManager = SmsManager.getDefault()
-                    // Replace with a test number for your hackathon demo
-                    smsManager.sendTextMessage("YOUR_NUMBER", null, "EMERGENCY! I need help. My location: [Mock Link]", null, null)
+                    // FIX: Modern way to get SmsManager from System Services
+                    val smsManager: SmsManager = context.getSystemService(SmsManager::class.java)
+
+                    // Replace "1234567890" with a real test number
+                    smsManager.sendTextMessage(
+                        "1234567890",
+                        null,
+                        "EMERGENCY! I need help. My location: [Mock Link]",
+                        null,
+                        null
+                    )
                     Toast.makeText(context, "SOS Sent!", Toast.LENGTH_LONG).show()
                 } catch (e: Exception) {
-                    Toast.makeText(context, "Check SMS Permissions in Settings", Toast.LENGTH_SHORT).show()
+                    e.printStackTrace()
+                    Toast.makeText(context, "Error: Check SMS Permissions", Toast.LENGTH_SHORT).show()
                 }
             },
             modifier = Modifier.fillMaxWidth().height(80.dp),
@@ -119,7 +129,7 @@ fun LegalGuideScreen(navController: NavHostController) {
         Text("AI Legal Guide", fontSize = 24.sp, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(20.dp))
         Text(
-            "FORMAL COMPLAINT DRAFT:\n\nTo: The SHO, Police Station\nSubject: Complaint for Harassment\n\nI am writing to report an incident...",
+            "FORMAL COMPLAINT DRAFT:\n\nTo: The SHO, Police Station\nSubject: Complaint for Harassment\n\nI am writing to report an incident regarding...",
             color = Color.DarkGray
         )
         Spacer(Modifier.height(40.dp))
